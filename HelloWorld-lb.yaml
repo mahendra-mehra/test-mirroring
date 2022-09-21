@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld-deployment-<userid>
-  namespace: ns-<userid>
+  name: helloworld-deployment-mahendra
+  namespace: ns-mahendra
 spec:
   selector:
     matchLabels:
@@ -16,18 +16,18 @@ spec:
       containers:
       - name: helloworld
     # enter the path to your image, be sure to include the correct region prefix    
-        image: <region-key>.ocir.io/<tenancy-namespace>/<repo-name>:<tag>-<userid>
+        image: iad.ocir.io/ocuocictrng6/oci_sample_webapp_user1:${BUILDRUN_HASH}
         ports:
         - containerPort: 80
       imagePullSecrets:
     # enter the name of the secret you created  
-      - name: <secret-name>
+      - name: ocir-secret-user1
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: helloworld-service-<userid>
-  namespace: ns-<userid>
+  name: helloworld-service-mahendra
+  namespace: ns-mahendra
 spec:
   type: LoadBalancer
   ports:
