@@ -5,7 +5,7 @@
 
 
 # Set the base image to Ubuntu
-FROM ubuntu
+FROM nginx
 
 # File Author / Maintainer
 MAINTAINER Mahendra Mehra
@@ -19,9 +19,9 @@ MAINTAINER Mahendra Mehra
 #RUN apt-get -y update
 
 # Install necessary tools
-RUN apt-get install -y vim wget dialog net-tools
+#RUN apt-get install -y vim wget dialog net-tools
 
-RUN apt-get install -y nginx
+#RUN apt-get install -y nginx
 
 # Remove the default Nginx configuration file
 RUN rm -v /etc/nginx/nginx.conf
@@ -35,7 +35,7 @@ RUN mkdir /etc/nginx/logs
 ADD index.html /www/data/
 
 # Append "daemon off;" to the beginning of the configuration
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+#RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Create a runner script for the entrypoint
 COPY runner.sh /runner.sh
@@ -48,4 +48,4 @@ ENTRYPOINT ["/runner.sh"]
 
 # Set the default command to execute
 # when creating a new container
-CMD ["nginx"]
+CMD ["nginx", "-g", "daemon off;"]
